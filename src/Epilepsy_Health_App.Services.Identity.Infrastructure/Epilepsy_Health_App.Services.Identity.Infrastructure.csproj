@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Epilepsy_Health_App.Services.Identity.Application\Epilepsy_Health_App.Services.Identity.Application.csproj" />
-    <ProjectReference Include="..\Epilepsy_Health_App.Services.Identity.Core\Epilepsy_Health_App.Services.Identity.Core.csproj" />
   </ItemGroup>
 
 </Project>
