@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Convey" Version="0.4.344" />
+    <PackageReference Include="Convey.Logging" Version="0.4.344" />
+    <PackageReference Include="Convey.WebApi" Version="0.4.344" />
+    <PackageReference Include="Convey.WebApi.CQRS" Version="0.4.344" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
   </ItemGroup>
 
