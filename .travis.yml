@@ -1,0 +1,25 @@
+language: csharp
+mono: none
+sudo: required
+dist: xenial
+dotnet: 3.1.100
+branches:
+  only:
+    - master
+before_script:
+  - chmod -R a+x Scripts
+script:
+  - ./Scripts/build.sh
+  - ./Scripts/test.sh
+after_success:
+  - ./Scripts/dockerize.sh
+notifications:
+  email:
+    recipients:
+      - filap4@gmail.com
+    on_success: never
+    on_failure: always
+
+
+
+    
