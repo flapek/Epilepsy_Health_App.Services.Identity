@@ -1,12 +1,12 @@
-﻿using Convey;
-using Convey.CQRS.Commands;
-using Convey.CQRS.Events;
+﻿using Joint;
+using Joint.CQRS.Commands;
+using Joint.CQRS.Events;
 
 namespace Epilepsy_Health_App.Services.Identity.Application
 {
     public static class Extensions
     {
-        public static IConveyBuilder AddApplication(this IConveyBuilder builder)
+        public static IJointBuilder AddApplication(this IJointBuilder builder)
             => builder
                 .AddCommandHandlers()
                 .AddEventHandlers()

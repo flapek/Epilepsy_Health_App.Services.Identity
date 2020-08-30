@@ -1,11 +1,11 @@
-using Convey;
+﻿using Epilepsy_Health_App.Services.Identity.Application;
+using Epilepsy_Health_App.Services.Identity.Infrastructure;
+using Joint;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Epilepsy_Health_App.Services.Identity.Application;
-using Epilepsy_Health_App.Services.Identity.Infrastructure;
 
 namespace Epilepsy_Health_App.Services.Identity.Api
 {
@@ -22,10 +22,9 @@ namespace Epilepsy_Health_App.Services.Identity.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddConvey()
+            services.AddJoint()
                 .AddApplication()
-                .AddInfrastructure()
-                .Build();
+                .AddInfrastructure();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,13 +35,11 @@ namespace Epilepsy_Health_App.Services.Identity.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseInfrastructure();
+            
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseInfrastructure();
+            app.UseRouting();           
 
             app.UseEndpoints(endpoints =>
             {

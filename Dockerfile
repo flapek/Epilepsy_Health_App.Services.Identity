@@ -7,5 +7,5 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
 COPY --from=build /app/out .
 ENV ASPNETCORE_URLS http://*:80
-ENV ASPNETCORE_ENVIRONMENT docker
+# ENV ASPNETCORE_ENVIRONMENT docker
 ENTRYPOINT dotnet Epilepsy_Health_App.Identity.API.dll

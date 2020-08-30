@@ -1,3 +1,4 @@
+using Joint.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -15,6 +16,8 @@ namespace Epilepsy_Health_App.Services.Identity.Api
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .UseLogging();
+
     }
 }

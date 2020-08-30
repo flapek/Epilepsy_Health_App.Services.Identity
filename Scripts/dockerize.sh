@@ -7,10 +7,10 @@ case "$TRAVIS_BRANCH" in
     TAG=latest
     VERSION_TAG=$TRAVIS_BUILD_NUMBER
     ;;
-  "develop")
-    TAG=dev
-    VERSION_TAG=$TAG-$TRAVIS_BUILD_NUMBER
-    ;;    
+  # "develop")
+  #   TAG=dev
+  #   VERSION_TAG=$TAG-$TRAVIS_BUILD_NUMBER
+  #   ;;    
 esac
 
 REPOSITORY=$DOCKER_USERNAME/Epilepsy_Health_App.Services.Identity

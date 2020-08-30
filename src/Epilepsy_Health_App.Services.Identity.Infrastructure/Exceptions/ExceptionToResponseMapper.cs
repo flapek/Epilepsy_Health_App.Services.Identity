@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Net;
-using Convey;
-using Convey.WebApi.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Application.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Core.Exceptions;
+using Joint;
+using Joint.WebApi.Exceptions;
 
 namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Exceptions
 {
