@@ -1,23 +1,19 @@
-﻿using Convey;
-using Convey.CQRS.Queries;
-using Convey.Docs.Swagger;
-using Convey.WebApi;
-using Convey.WebApi.Swagger;
-using Epilepsy_Health_App.Services.Identity.Infrastructure.Exceptions;
+﻿using Epilepsy_Health_App.Services.Identity.Infrastructure.Exceptions;
+using Joint;
+using Joint.Auth;
 using Microsoft.AspNetCore.Builder;
-using SCL.Auth;
 
 namespace Epilepsy_Health_App.Services.Identity.Infrastructure
 {
     public static class Extensions
     {
-        public static IConveyBuilder AddInfrastructure(this IConveyBuilder builder)
+        public static IJointBuilder AddInfrastructure(this IJointBuilder builder)
         {
             return builder
+                .AddJwt()
                 .AddErrorHandler<ExceptionToResponseMapper>()
                 .AddQueryHandlers()
                 .AddInMemoryQueryDispatcher()
-                .AddJwt()
                 .AddExceptionToMessageMapper<ExceptionToMessageMapper>()
                 .AddWebApiSwaggerDocs();
         }
