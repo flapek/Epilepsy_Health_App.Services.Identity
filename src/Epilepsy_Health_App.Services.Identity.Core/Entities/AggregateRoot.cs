@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Epilepsy_Health_App.Services.Core.Application.Events;
+using System.Collections.Generic;
 
 namespace Epilepsy_Health_App.Services.Identity.Core.Entities
 {
