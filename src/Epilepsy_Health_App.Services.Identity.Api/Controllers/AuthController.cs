@@ -1,69 +1,54 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
+using Joint.CQRS.Commands;
+using Joint.CQRS.Queries;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Threading.Tasks;
 
 namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 {
-    
+
     [Route("api/[controller]")]
     public class AuthController : Controller
     {
-        private IOptions<Audience> _settings;
+        readonly ICommandDispatcher _commandDispatcher;
+        readonly IQueryDispatcher _queryDispatcher;
+        readonly ICookieFactory _cookieFactory;
 
-        public AuthController(IOptions<Audience> settings)
+        public AuthController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ICookieFactory cookieFactory)
         {
-            this._settings = settings;
+            this._commandDispatcher = commandDispatcher;
+            this._queryDispatcher = queryDispatcher;
+            this._cookieFactory = cookieFactory;
         }
 
-        [HttpGet]
-        public IActionResult Get(string name, string pwd)
+        [HttpPost("registry")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> Registry()
         {
-            if (name == "catcher" && pwd == "123")
-            {
 
-                var now = DateTime.UtcNow;
-
-                var claims = new Claim[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Sub, name),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(JwtRegisteredClaimNames.Iat, now.ToUniversalTime().ToString(), ClaimValueTypes.Integer64)
-                };
-
-                var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_settings.Value.Secret));
-
-                var jwt = new JwtSecurityToken(
-                    issuer: _settings.Value.Iss,
-                    audience: _settings.Value.Aud,
-                    claims: claims,
-                    notBefore: now,
-                    expires: now.Add(TimeSpan.FromMinutes(2)),
-                    signingCredentials: new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
-                );
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-                var responseJson = new
-                {
-                    access_token = encodedJwt,
-                    expires_in = (int)TimeSpan.FromMinutes(2).TotalSeconds
-                };
-
-                return Json(responseJson);
-            }
-            else
-            {
-                return Json("");
-            }
+            return Ok(new object());
         }
-    }
+        
+        [HttpPost("SignIn")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> SignIn()
+        {
 
-    public class Audience
-    {
-        public string Secret { get; set; }
-        public string Iss { get; set; }
-        public string Aud { get; set; }
+            return Ok(new object());
+        }
+        
+        [Authorize]
+        [HttpPost("SingOut")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> SingOut()
+        {
+
+            return Ok(new object());
+        }
+
+
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Epilepsy_Health_App.Services.Identity.Core.Exceptions
+﻿namespace Epilepsy_Health_App.Services.Identity.Core.Exceptions
 {
     public class InvalidAggregateIdException : DomainException
     {
