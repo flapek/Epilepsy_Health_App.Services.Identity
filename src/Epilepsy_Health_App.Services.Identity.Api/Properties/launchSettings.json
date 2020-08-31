@@ -17,7 +17,7 @@
     "Epilepsy_Health_App.Services.Identity.Api": {
       "commandName": "Project",
       "launchBrowser": false,
-      "applicationUrl": "http://localhost:5001",
+      "applicationUrl": "http://localhost:5001;https://localhost:6001",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -4,20 +4,6 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<UserSecretsId>0e7b72de-a844-4890-bcb5-0956116aea68</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-		<Deterministic>false</Deterministic>
-		<AssemblyName>Epilepsy_Health_App.Services.Identity.Api.cs</AssemblyName>
-		<RootNamespace>Epilepsy_Health_App.Services.Identity</RootNamespace>
-		<VersionSuffix>1.0.$([System.DateTime]::UtcNow.ToString(dd-MM-yyyy))</VersionSuffix>
-		<AssemblyVersion Condition=" '$(VersionSuffix)' == '' ">0.0.0.1</AssemblyVersion>
-		<AssemblyVersion Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</AssemblyVersion>
-		<Version Condition=" '$(VersionSuffix)' == '' ">0.0.1.0</Version>
-		<Version Condition=" '$(VersionSuffix)' != '' ">$(VersionSuffix)</Version>
-		<Company></Company>
-		<Authors>Marcin Filapek</Authors>
-		<Copyright></Copyright>
-		<Product>Epilepsy_Health_App.Services.Identity</Product>
-		<RepositoryUrl>https://github.com/flapek/Epilepsy_Health_App.Services.Identity</RepositoryUrl>
 	</PropertyGroup>
 
 	<ItemGroup>

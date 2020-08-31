@@ -16,16 +16,17 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
                 .AddJwt()
                 .AddErrorHandler<ExceptionToResponseMapper>()
                 .AddQueryHandlers()
-                .AddInMemoryQueryDispatcher();
+                .AddInMemoryQueryDispatcher()
+                .AddSwaggerDocs();
 
             return builder;
         }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
         {
-            app.UseErrorHandler()
+            app.UseJoint()
+                .UseErrorHandler()
                 .UseSwaggerDocs()
-                .UseJoint()
                 .UseAuthentication()
                 .UseAuthorization();
 
