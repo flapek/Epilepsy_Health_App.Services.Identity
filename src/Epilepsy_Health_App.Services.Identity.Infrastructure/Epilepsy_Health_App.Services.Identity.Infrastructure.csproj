@@ -11,14 +11,17 @@
 	<ItemGroup>
 	  <Folder Include="Context\" />
 	  <Folder Include="Decorators\" />
-	  <Folder Include="Services\" />
+	  <Folder Include="Mongo\Documents\" />
+	  <Folder Include="Mongo\Repositories\" />
+	  <Folder Include="Mongo\Queries\" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Joint" Version="0.0.35" />
-	  <PackageReference Include="Joint.Auth" Version="0.0.35" />
-	  <PackageReference Include="Joint.Docs.Swagger" Version="0.0.35" />
-	  <PackageReference Include="Joint.WebApi" Version="0.0.35" />
+	  <PackageReference Include="Joint" Version="0.0.43" />
+	  <PackageReference Include="Joint.Auth" Version="0.0.43" />
+	  <PackageReference Include="Joint.Docs.Swagger" Version="0.0.43" />
+	  <PackageReference Include="Joint.WebApi" Version="0.0.43" />
+	  <PackageReference Include="MongoDB.Driver" Version="2.11.1" />
 	</ItemGroup>
 
 </Project>

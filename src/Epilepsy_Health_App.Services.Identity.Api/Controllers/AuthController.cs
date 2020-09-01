@@ -1,10 +1,11 @@
-﻿using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
+﻿using Epilepsy_Health_App.Services.Identity.Application.Commands;
+using Epilepsy_Health_App.Services.Identity.Application.DTO;
+using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
 using Joint.CQRS.Commands;
 using Joint.CQRS.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
@@ -23,32 +24,30 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
             this._queryDispatcher = queryDispatcher;
             this._cookieFactory = cookieFactory;
         }
-
-        [HttpPost("registry")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> Registry()
-        {
-
-            return Ok(new object());
-        }
-        
-        [HttpPost("SignIn")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> SignIn()
-        {
-
-            return Ok(new object());
-        }
         
         [Authorize]
         [HttpPost("SingOut")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> SingOut()
+        public async Task<IActionResult> SingUp(SignUp command)
         {
-
+            await _commandDispatcher.SendAsync(command);
             return Ok(new object());
         }
 
+        [HttpPost("SignIn")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        public async Task<IActionResult> SignIn(SignIn command)
+        {
+            var token = await _commandDispatcher.SendAsync<AuthDto>(command);
+            _cookieFactory.SetResponseTokenCookie(this, token.RefreshToken, token.Expires);
+            return Accepted(token);
+        }
 
+        [HttpPost("registry")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        public async Task<IActionResult> SignOut()
+        {
+            return Accepted(new object());
+        }
     }
 }
