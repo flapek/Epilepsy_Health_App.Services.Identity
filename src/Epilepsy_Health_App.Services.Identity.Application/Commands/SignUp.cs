@@ -5,9 +5,9 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Commands
 {
     public class SignUp : ICommand
     {
-        public Guid UserId { get; }
-        public string Email { get; }
-        public string Password { get; }
+        public Guid UserId { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
         public SignUp(Guid userId, string email, string password)
         {

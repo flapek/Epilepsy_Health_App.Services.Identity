@@ -1,16 +1,21 @@
 ﻿using Epilepsy_Health_App.Services.Identity.Application.Services;
+using Epilepsy_Health_App.Services.Identity.Core.Repositories;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Auth;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo;
+using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Documents;
+using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Repositories;
 using Joint;
 using Joint.Auth;
 using Joint.CQRS.Queries;
+using Joint.DB.Mongo;
 using Joint.Docs.Swagger;
 using Joint.WebApi;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using Pacco.Services.Identity.Infrastructure.Auth;
+using System;
 
 namespace Epilepsy_Health_App.Services.Identity.Infrastructure
 {
@@ -18,34 +23,40 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
     {
         public static IJointBuilder AddInfrastructure(this IJointBuilder builder)
         {
-            builder
-                .AddWebApi()
+            builder.Services.AddTransient<ICookieFactory, CookieFactory>();
+            builder.Services.AddTransient<IJwtProvider, JwtProvider>();
+            builder.Services.AddTransient<IPasswordService, PasswordService>();
+            builder.Services.AddSingleton<IPasswordHasher<IPasswordService>, PasswordHasher<IPasswordService>>();
+            builder.Services.AddTransient<IRng, Rng>();
+            builder.Services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
+            builder.Services.AddTransient<IUserRepository, UserRepository>();
+
+            return builder.AddWebApi()
                 .AddJwt()
+                .AddMongo()
+                .AddMongoRepository<UserDocument, Guid>("users")
+                .AddMongoRepository<RefreshTokenDocument, Guid>("refreshTokens")
                 .AddErrorHandler<ExceptionToResponseMapper>()
                 .AddQueryHandlers()
                 .AddInMemoryQueryDispatcher()
                 .AddSwaggerDocs();
-
-            builder.Services.AddTransient<ICookieFactory, CookieFactory>();
-            builder.Services.AddTransient<IJwtProvider, JwtProvider>();
-            builder.Services.AddTransient<IPasswordService, PasswordService>();
-            builder.Services.AddTransient<IRng, Rng>();
-
-
-            return builder;
         }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
         {
-            app.UseJoint()
-                .UseErrorHandler()
+            app.UseErrorHandler()
+                .UseJoint()
+                .UseAccessTokenValidator()
                 .UseSwaggerDocs()
                 .UseMongo()
                 .UseAuthentication()
-                .UseAuthorization();
+                .UseAuthorization()
+                .Build();
 
             return app;
         }
+
+
 
     }
 }

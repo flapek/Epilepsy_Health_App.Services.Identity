@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Documents;
+using Joint.DB.Mongo;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using System;

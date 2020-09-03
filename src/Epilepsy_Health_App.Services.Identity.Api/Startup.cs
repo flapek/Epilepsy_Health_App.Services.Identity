@@ -35,12 +35,12 @@ namespace Epilepsy_Health_App.Services.Identity.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseInfrastructure();
-            
             app.UseHttpsRedirection();
 
-            app.UseRouting();           
+            app.UseRouting();
 
+            app.UseInfrastructure();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

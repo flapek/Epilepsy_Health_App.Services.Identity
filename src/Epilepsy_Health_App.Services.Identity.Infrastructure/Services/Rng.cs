@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace Pacco.Services.Identity.Infrastructure.Auth
+namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Auth
 {
     internal sealed class Rng : IRng
     {

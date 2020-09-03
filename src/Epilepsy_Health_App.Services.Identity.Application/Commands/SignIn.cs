@@ -7,6 +7,5 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Commands
     {
         public string Email { get; set; }
         public string Password { get; set; }
-
     }
 }

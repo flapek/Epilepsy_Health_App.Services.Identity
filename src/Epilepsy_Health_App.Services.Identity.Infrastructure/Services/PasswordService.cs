@@ -1,7 +1,7 @@
 using Epilepsy_Health_App.Services.Identity.Application.Services;
 using Microsoft.AspNetCore.Identity;
 
-namespace Pacco.Services.Identity.Infrastructure.Auth
+namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Auth
 {
     public class PasswordService : IPasswordService
     {
