@@ -1,4 +1,5 @@
 ﻿using Epilepsy_Health_App.Services.Identity.Application.Services;
+using Epilepsy_Health_App.Services.Identity.Application.Services.Identity;
 using Epilepsy_Health_App.Services.Identity.Core.Repositories;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Auth;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
@@ -29,6 +30,8 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
             builder.Services.AddTransient<IRng, Rng>();
             builder.Services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
             builder.Services.AddTransient<IUserRepository, UserRepository>();
+            builder.Services.AddTransient<IIdentityService, IdentityService>();
+            builder.Services.AddTransient<IRefreshTokenService, RefreshTokenService>();
 
             return builder.AddWebApi()
                 .AddJwt()

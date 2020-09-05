@@ -10,8 +10,8 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies
         {
             var cookieOptions = new CookieOptions
             {
-                HttpOnly = true,
-                Expires = expire
+                HttpOnly= true,
+                Expires = DateTime.SpecifyKind(expire, DateTimeKind.Utc)
             };
             controllerBase.Response.Cookies.Append("RefreshToken", token, cookieOptions);
         }
