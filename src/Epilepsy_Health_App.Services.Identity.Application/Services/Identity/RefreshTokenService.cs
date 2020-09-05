@@ -48,21 +48,19 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
         public async Task<AuthDto> UseAsync(string refreshToken)
         {
             var token = await _refreshTokenRepository.GetAsync(refreshToken);
-            if (token is null)
-            {
-                throw new InvalidRefreshTokenException();
-            }
 
             if (token.Revoked)
-            {
                 throw new RevokedRefreshTokenException();
-            }
+
+            if (token is null)
+                throw new InvalidRefreshTokenException();
+
+            if (token.Revoked)
+                throw new RevokedRefreshTokenException();
 
             var user = await _userRepository.GetAsync(token.UserId);
             if (user is null)
-            {
                 throw new UserNotFoundException(token.UserId);
-            }
 
             var auth = _jwtProvider.Create(token.UserId, user.Email);
             await _refreshTokenRepository.UpdateAsync(new RefreshToken(token.Id, token.UserId, token.Token, DateTime.UtcNow, DateTime.UtcNow.AddDays(7)));

@@ -49,6 +49,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [HttpPost("SignOut")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> SignOut([FromBody] SignOut command)
         {
             await _commandDispatcher.SendAsync(command);
@@ -60,8 +61,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Refresh_Token()
         {
-            var command = new Refresh_Token();
-            command.RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this);
+            var command = new Refresh_Token() { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
 
             var token = await _commandDispatcher.SendAsync<AuthDto>(command);
             _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
@@ -70,7 +70,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 
         [Authorize]
         [HttpGet("get")]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
             return Ok("Good job!!");
         }
