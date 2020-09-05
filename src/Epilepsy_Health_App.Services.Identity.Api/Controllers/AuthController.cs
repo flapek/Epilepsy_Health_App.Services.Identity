@@ -41,7 +41,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         public async Task<IActionResult> SignIn([FromBody] SignIn command)
         {
             var token = await _commandDispatcher.SendAsync<AuthDto>(command);
-            _cookieFactory.SetResponseTokenCookie(this, token.RefreshToken, token.Expires);
+            _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
             return Accepted(token);
         }
 
@@ -53,6 +53,26 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         {
             await _commandDispatcher.SendAsync(command);
             return Accepted();
+        }
+
+        [HttpPost("Refresh-Token")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> Refresh_Token()
+        {
+            var command = new Refresh_Token();
+            command.RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this);
+
+            var token = await _commandDispatcher.SendAsync<AuthDto>(command);
+            _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
+            return Accepted(token);
+        }
+
+        [Authorize]
+        [HttpGet("get")]
+        public async Task<IActionResult> Get()
+        {
+            return Ok("Good job!!");
         }
     }
 }

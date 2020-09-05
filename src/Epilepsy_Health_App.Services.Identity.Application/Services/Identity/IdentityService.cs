@@ -3,7 +3,6 @@ using Epilepsy_Health_App.Services.Identity.Application.DTO;
 using Epilepsy_Health_App.Services.Identity.Core.Entities;
 using Epilepsy_Health_App.Services.Identity.Core.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Core.Repositories;
-using Joint.Auth.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.RegularExpressions;
@@ -22,18 +21,16 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
         private readonly IPasswordService _passwordService;
         private readonly IJwtProvider _jwtProvider;
         private readonly IRefreshTokenService _refreshTokenService;
-        private readonly IAccessTokenService _accessTokenService;
         private readonly ILogger<IdentityService> _logger;
 
         public IdentityService(IUserRepository userRepository, IPasswordService passwordService,
-            IJwtProvider jwtProvider, IRefreshTokenService refreshTokenService, IAccessTokenService accessTokenService,
+            IJwtProvider jwtProvider, IRefreshTokenService refreshTokenService,
             ILogger<IdentityService> logger)
         {
             _userRepository = userRepository;
             _passwordService = passwordService;
             _jwtProvider = jwtProvider;
             _refreshTokenService = refreshTokenService;
-            _accessTokenService = accessTokenService;
             _logger = logger;
         }
 
@@ -95,9 +92,15 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
             return auth;
         }
 
-        public Task SignOutAsync(SignOut command)
+        public async Task SignOutAsync(SignOut command)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(command.RefreshToken))
+            {
+                _logger.LogError("Refresh token can't be null or empty");
+                throw new EmptyRefreshTokenException();
+            }
+
+            await _refreshTokenService.RevokeAsync(command.RefreshToken);
         }
 
     }

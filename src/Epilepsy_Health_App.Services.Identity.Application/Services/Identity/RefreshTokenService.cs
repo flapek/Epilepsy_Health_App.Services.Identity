@@ -27,7 +27,7 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
         public async Task<string> CreateAsync(Guid userId)
         {
             var token = _rng.Generate(30, true);
-            var refreshToken = new RefreshToken(new AggregateId(), userId, token, DateTime.UtcNow);
+            var refreshToken = new RefreshToken(new AggregateId(), userId, token, DateTime.UtcNow, DateTime.UtcNow.AddDays(7));
             await _refreshTokenRepository.AddAsync(refreshToken);
 
             return token;
@@ -65,6 +65,8 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
             }
 
             var auth = _jwtProvider.Create(token.UserId, user.Email);
+            await _refreshTokenRepository.UpdateAsync(new RefreshToken(token.Id, token.UserId, token.Token, DateTime.UtcNow, DateTime.UtcNow.AddDays(7)));
+
             auth.RefreshToken = refreshToken;
 
             return auth;

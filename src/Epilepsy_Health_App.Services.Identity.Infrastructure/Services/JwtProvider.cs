@@ -20,9 +20,9 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Auth
 
             return new AuthDto
             {
+                Id = userId,
                 AccessToken = jwt.AccessToken,
                 RefreshToken = jwt.RefreshToken,
-                Expires = new DateTime(jwt.Expires)
             };
         }
     }
