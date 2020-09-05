@@ -55,8 +55,9 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [ProducesResponseType(typeof(EmptyRefreshTokenException), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(InvalidRefreshTokenException), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> SignOut([FromBody] SignOut command)
+        public async Task<IActionResult> SignOut()
         {
+            SignOut command = new SignOut { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
             await _commandDispatcher.SendAsync(command);
             return Accepted();
         }
@@ -68,7 +69,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [ProducesResponseType(typeof(UserNotFoundException), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Refresh_Token()
         {
-            var command = new Refresh_Token() { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
+            var command = new Refresh_Token { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
 
             var token = await _commandDispatcher.SendAsync<AuthDto>(command);
             _cookieFactory.SetResponseRefreshTokenCookie(this, token.RefreshToken);
