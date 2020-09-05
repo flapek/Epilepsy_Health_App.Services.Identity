@@ -25,17 +25,19 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
             this._cookieFactory = cookieFactory;
         }
 
-        
-        [HttpPost("SingUp")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> SingUp([FromBody] SignUp command)
+
+        [HttpPost("SignUp")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> SignUp([FromBody] SignUp command)
         {
             await _commandDispatcher.SendAsync(command);
-            return Ok(new object());
+            return Accepted();
         }
 
         [HttpPost("SignIn")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(typeof(AuthDto), StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SignIn([FromBody] SignIn command)
         {
             var token = await _commandDispatcher.SendAsync<AuthDto>(command);
@@ -46,6 +48,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [Authorize]
         [HttpPost("SignOut")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SignOut()
         {
             return Accepted(new object());
