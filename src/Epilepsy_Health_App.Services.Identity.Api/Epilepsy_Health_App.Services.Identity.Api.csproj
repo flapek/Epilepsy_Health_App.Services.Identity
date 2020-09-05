@@ -3,12 +3,20 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		<UserSecretsId>0e7b72de-a844-4890-bcb5-0956116aea68</UserSecretsId>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <DocumentationFile>bin\Release\netcoreapp3.1\Epilepsy_Health_App.Services.Identity.Api.xml</DocumentationFile>
+	  <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+	</PropertyGroup>
+
 	<ItemGroup>
-		<PackageReference Include="Joint" Version="0.0.52" />
-		<PackageReference Include="Joint.Logging" Version="0.0.52" />
+		<PackageReference Include="Joint" Version="0.0.68" />
+		<PackageReference Include="Joint.Docs.Swagger" Version="0.0.68" />
+		<PackageReference Include="Joint.Logging" Version="0.0.68" />
 		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
 	</ItemGroup>
 

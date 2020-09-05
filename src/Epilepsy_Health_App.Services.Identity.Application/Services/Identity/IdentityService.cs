@@ -3,6 +3,7 @@ using Epilepsy_Health_App.Services.Identity.Application.DTO;
 using Epilepsy_Health_App.Services.Identity.Core.Entities;
 using Epilepsy_Health_App.Services.Identity.Core.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Core.Repositories;
+using Joint.Auth.Services;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.RegularExpressions;
@@ -21,16 +22,18 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
         private readonly IPasswordService _passwordService;
         private readonly IJwtProvider _jwtProvider;
         private readonly IRefreshTokenService _refreshTokenService;
+        private readonly IAccessTokenService _accessTokenService;
         private readonly ILogger<IdentityService> _logger;
 
         public IdentityService(IUserRepository userRepository, IPasswordService passwordService,
-            IJwtProvider jwtProvider, IRefreshTokenService refreshTokenService,
+            IJwtProvider jwtProvider, IRefreshTokenService refreshTokenService, IAccessTokenService accessTokenService,
             ILogger<IdentityService> logger)
         {
             _userRepository = userRepository;
             _passwordService = passwordService;
             _jwtProvider = jwtProvider;
             _refreshTokenService = refreshTokenService;
+            _accessTokenService = accessTokenService;
             _logger = logger;
         }
 
@@ -39,6 +42,28 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
             var user = await _userRepository.GetAsync(id);
 
             return user is null ? null : new UserDto(user);
+        }
+
+        public async Task SignUpAsync(SignUp command)
+        {
+            if (!EmailRegex.IsMatch(command.Email))
+            {
+                _logger.LogError($"Invalid email: {command.Email}");
+                throw new InvalidEmailException(command.Email);
+            }
+
+            var user = await _userRepository.GetAsync(command.Email);
+            if (user is { })
+            {
+                _logger.LogError($"Email already in use: {command.Email}");
+                throw new EmailInUseException(command.Email);
+            }
+
+            var password = _passwordService.Hash(command.Password);
+            user = new User(command.UserId, command.Email, password, DateTime.UtcNow);
+            await _userRepository.AddAsync(user);
+
+            _logger.LogInformation($"Created an account for the user with id: {user.Id}.");
         }
 
         public async Task<AuthDto> SignInAsync(SignIn command)
@@ -70,26 +95,10 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
             return auth;
         }
 
-        public async Task SignUpAsync(SignUp command)
+        public Task SignOutAsync(SignOut command)
         {
-            if (!EmailRegex.IsMatch(command.Email))
-            {
-                _logger.LogError($"Invalid email: {command.Email}");
-                throw new InvalidEmailException(command.Email);
-            }
-
-            var user = await _userRepository.GetAsync(command.Email);
-            if (user is { })
-            {
-                _logger.LogError($"Email already in use: {command.Email}");
-                throw new EmailInUseException(command.Email);
-            }
-
-            var password = _passwordService.Hash(command.Password);
-            user = new User(command.UserId, command.Email, password, DateTime.UtcNow);
-            await _userRepository.AddAsync(user);
-
-            _logger.LogInformation($"Created an account for the user with id: {user.Id}.");
+            throw new NotImplementedException();
         }
+
     }
 }

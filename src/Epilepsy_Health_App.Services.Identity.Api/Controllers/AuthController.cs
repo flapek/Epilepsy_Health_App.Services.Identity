@@ -20,9 +20,9 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 
         public AuthController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ICookieFactory cookieFactory)
         {
-            this._commandDispatcher = commandDispatcher;
-            this._queryDispatcher = queryDispatcher;
-            this._cookieFactory = cookieFactory;
+            _commandDispatcher = commandDispatcher;
+            _queryDispatcher = queryDispatcher;
+            _cookieFactory = cookieFactory;
         }
 
 
@@ -49,9 +49,10 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [HttpPost("SignOut")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SignOut()
+        public async Task<IActionResult> SignOut([FromBody] SignOut command)
         {
-            return Accepted(new object());
+            await _commandDispatcher.SendAsync(command);
+            return Accepted();
         }
     }
 }

@@ -10,7 +10,6 @@ using Joint;
 using Joint.Auth;
 using Joint.CQRS.Queries;
 using Joint.DB.Mongo;
-using Joint.Docs.Swagger;
 using Joint.WebApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -38,8 +37,7 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
                 .AddMongoRepository<RefreshTokenDocument, Guid>("refreshTokens")
                 .AddErrorHandler<ExceptionToResponseMapper>()
                 .AddQueryHandlers()
-                .AddInMemoryQueryDispatcher()
-                .AddSwaggerDocs();
+                .AddInMemoryQueryDispatcher();
         }
 
         public static IApplicationBuilder UseInfrastructure(this IApplicationBuilder app)
@@ -47,7 +45,6 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
             app.UseErrorHandler()
                 .UseJoint()
                 .UseAccessTokenValidator()
-                .UseSwaggerDocs()
                 .UseMongo()
                 .UseAuthentication()
                 .UseAuthorization()
