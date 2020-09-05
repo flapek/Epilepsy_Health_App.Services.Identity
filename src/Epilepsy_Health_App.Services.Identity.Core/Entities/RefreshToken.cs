@@ -9,7 +9,7 @@ namespace Epilepsy_Health_App.Services.Identity.Core.Entities
         public string Token { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime? RevokedAt { get; private set; }
-        public bool Revoked => DateTime.Compare(DateTime.Now, RevokedAt.Value) > 0 ? true : false;
+        public bool Revoked => DateTime.Compare(DateTime.Now, RevokedAt.Value) > 0;
 
         protected RefreshToken()
         {

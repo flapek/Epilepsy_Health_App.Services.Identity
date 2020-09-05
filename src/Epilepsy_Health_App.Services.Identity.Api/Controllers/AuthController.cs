@@ -1,5 +1,7 @@
 ﻿using Epilepsy_Health_App.Services.Identity.Application.Commands;
 using Epilepsy_Health_App.Services.Identity.Application.DTO;
+using Epilepsy_Health_App.Services.Identity.Application.Exceptions;
+using Epilepsy_Health_App.Services.Identity.Core.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
 using Joint.CQRS.Commands;
 using Joint.CQRS.Queries;
@@ -28,7 +30,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 
         [HttpPost("SignUp")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(EmailInUseException), StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SignUp([FromBody] SignUp command)
         {
             await _commandDispatcher.SendAsync(command);
@@ -38,6 +40,8 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [HttpPost("SignIn")]
         [ProducesResponseType(typeof(AuthDto), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(InvalidEmailOrPasswordException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(InvalidCredentialsException), StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> SignIn([FromBody] SignIn command)
         {
             var token = await _commandDispatcher.SendAsync<AuthDto>(command);
@@ -48,7 +52,8 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [Authorize]
         [HttpPost("SignOut")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(EmptyRefreshTokenException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(InvalidRefreshTokenException), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> SignOut([FromBody] SignOut command)
         {
@@ -58,7 +63,9 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 
         [HttpPost("Refresh-Token")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(InvalidRefreshTokenException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(RevokedRefreshTokenException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(UserNotFoundException), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Refresh_Token()
         {
             var command = new Refresh_Token() { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };

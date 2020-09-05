@@ -49,9 +49,6 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
         {
             var token = await _refreshTokenRepository.GetAsync(refreshToken);
 
-            if (token.Revoked)
-                throw new RevokedRefreshTokenException();
-
             if (token is null)
                 throw new InvalidRefreshTokenException();
 

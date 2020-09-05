@@ -46,7 +46,7 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
             if (!EmailRegex.IsMatch(command.Email))
             {
                 _logger.LogError($"Invalid email: {command.Email}");
-                throw new InvalidEmailException(command.Email);
+                throw new InvalidEmailOrpasswordException(command.Email);
             }
 
             var user = await _userRepository.GetAsync(command.Email);
@@ -68,7 +68,7 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
             if (!EmailRegex.IsMatch(command.Email))
             {
                 _logger.LogError($"Invalid email: {command.Email}");
-                throw new InvalidEmailException(command.Email);
+                throw new InvalidEmailOrpasswordException(command.Email);
             }
 
             var user = await _userRepository.GetAsync(command.Email);

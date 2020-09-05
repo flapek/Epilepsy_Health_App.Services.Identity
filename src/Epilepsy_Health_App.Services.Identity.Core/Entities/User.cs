@@ -13,12 +13,12 @@ namespace Epilepsy_Health_App.Services.Identity.Core.Entities
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                throw new InvalidEmailException(email);
+                throw new InvalidEmailOrPasswordException(email);
             }
 
             if (string.IsNullOrWhiteSpace(password))
             {
-                throw new InvalidPasswordException();
+                throw new InvalidEmailOrPasswordException(email);
             }
 
             Id = id;
