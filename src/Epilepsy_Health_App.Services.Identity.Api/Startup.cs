@@ -25,11 +25,12 @@ namespace Epilepsy_Health_App.Services.Identity.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson();
             services.AddJoint()
+                .AddSwaggerDocs(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"))
                 .AddApplication()
-                .AddInfrastructure()
-                .AddSwaggerDocs(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"));
+                .AddInfrastructure();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,12 +41,12 @@ namespace Epilepsy_Health_App.Services.Identity.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwaggerDocs();
-
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+
+            app.UseSwaggerDocs();
 
             app.UseHttpsRedirection();
 

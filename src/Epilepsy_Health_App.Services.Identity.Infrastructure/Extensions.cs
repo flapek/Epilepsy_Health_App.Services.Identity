@@ -55,8 +55,7 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
                 .UseAccessTokenValidator()
                 .UseMongo()
                 .UseAuthentication()
-                .UseAuthorization()
-                .Build();
+                .UseAuthorization();
 
             return app;
         }

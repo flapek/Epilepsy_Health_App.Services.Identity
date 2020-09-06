@@ -14,11 +14,12 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 {
 
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    [ApiController]
+    public class AuthController : ControllerBase
     {
-        readonly ICommandDispatcher _commandDispatcher;
-        readonly IQueryDispatcher _queryDispatcher;
-        readonly ICookieFactory _cookieFactory;
+        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IQueryDispatcher _queryDispatcher;
+        private readonly ICookieFactory _cookieFactory;
 
         public AuthController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ICookieFactory cookieFactory)
         {
@@ -54,7 +55,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         [ProducesResponseType(typeof(EmptyRefreshTokenException), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(InvalidRefreshTokenException), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> SignOut(SignOut command)
+        public async Task<IActionResult> SignOut([FromBody] SignOut command)
         {
             command.RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this);
             await _commandDispatcher.SendAsync(command);
@@ -75,6 +76,12 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
             return Accepted(token);
         }
 
+
+        /// <summary>
+        /// This route is for test. 
+        /// If you have access token from LogIn request try to send it there. 
+        /// </summary>
+        /// <returns>If pass return success string</returns>
         [Authorize]
         [HttpGet("get")]
         public IActionResult Get()
