@@ -49,7 +49,6 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
             return Accepted(token);
         }
 
-        [Authorize]
         [HttpPost("SignOut")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(EmptyRefreshTokenException), StatusCodes.Status400BadRequest)]

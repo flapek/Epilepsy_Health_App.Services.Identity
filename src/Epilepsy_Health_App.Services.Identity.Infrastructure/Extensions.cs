@@ -7,10 +7,13 @@ using Epilepsy_Health_App.Services.Identity.Infrastructure.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Documents;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Repositories;
+using Epilepsy_Health_App.Services.Identity.Infrastructure.Services;
 using Joint;
 using Joint.Auth;
+using Joint.Auth.Services;
 using Joint.CQRS.Queries;
 using Joint.DB.Mongo;
+using Joint.DBRedis;
 using Joint.WebApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +29,7 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
             builder.Services.AddTransient<ICookieFactory, CookieFactory>();
             builder.Services.AddTransient<IJwtProvider, JwtProvider>();
             builder.Services.AddTransient<IPasswordService, PasswordService>();
+            builder.Services.AddTransient<IAccessTokenService, AccessTokenService>();
             builder.Services.AddSingleton<IPasswordHasher<IPasswordService>, PasswordHasher<IPasswordService>>();
             builder.Services.AddTransient<IRng, Rng>();
             builder.Services.AddTransient<IRefreshTokenRepository, RefreshTokenRepository>();
@@ -38,6 +42,7 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
                 .AddMongo()
                 .AddMongoRepository<UserDocument, Guid>("users")
                 .AddMongoRepository<RefreshTokenDocument, Guid>("refreshTokens")
+                .AddRedis()
                 .AddErrorHandler<ExceptionToResponseMapper>()
                 .AddQueryHandlers()
                 .AddInMemoryQueryDispatcher();
