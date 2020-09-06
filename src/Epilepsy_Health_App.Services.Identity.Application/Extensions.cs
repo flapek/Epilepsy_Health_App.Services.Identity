@@ -7,10 +7,12 @@ namespace Epilepsy_Health_App.Services.Identity.Application
     public static class Extensions
     {
         public static IJointBuilder AddApplication(this IJointBuilder builder)
-            => builder
+        {
+            return builder
                 .AddCommandHandlers()
                 .AddEventHandlers()
                 .AddInMemoryCommandDispatcher()
                 .AddInMemoryEventDispatcher();
+        }
     }
 }

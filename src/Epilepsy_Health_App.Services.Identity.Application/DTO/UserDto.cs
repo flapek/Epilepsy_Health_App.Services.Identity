@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Epilepsy_Health_App.Services.Identity.Core.Entities;
 
 namespace Epilepsy_Health_App.Services.Identity.Application.DTO

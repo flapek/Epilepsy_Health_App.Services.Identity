@@ -22,15 +22,11 @@ namespace Epilepsy_Health_App.Services.Identity.Core.Entities
             Value = value;
         }
 
-        public bool Equals(AggregateId other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            return ReferenceEquals(this, other) || Value.Equals(other.Value);
-        }
+        public bool Equals(AggregateId other) => !(other is null) && (ReferenceEquals(this, other) || Value.Equals(other.Value));
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == GetType() && Equals((AggregateId)obj);
         }
