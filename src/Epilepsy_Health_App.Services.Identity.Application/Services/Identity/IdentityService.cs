@@ -22,7 +22,7 @@ namespace Epilepsy_Health_App.Services.Identity.Application.Services.Identity
         private readonly IPasswordService _passwordService;
         private readonly IJwtProvider _jwtProvider;
         private readonly IRefreshTokenService _refreshTokenService;
-        readonly IAccessTokenService _accessTokenService;
+        private readonly IAccessTokenService _accessTokenService;
         private readonly ILogger<IdentityService> _logger;
 
         public IdentityService(IUserRepository userRepository, IPasswordService passwordService,
