@@ -1,3 +1,4 @@
+using Joint.Exception.Exceptions;
 using System.Net;
 
 namespace Epilepsy_Health_App.Services.Identity.Core.Exceptions

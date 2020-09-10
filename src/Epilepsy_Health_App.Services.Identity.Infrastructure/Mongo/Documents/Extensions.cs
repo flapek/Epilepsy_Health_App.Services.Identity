@@ -1,5 +1,4 @@
-﻿using Epilepsy_Health_App.Services.Identity.Application.DTO;
-using Epilepsy_Health_App.Services.Identity.Core.Entities;
+﻿using Epilepsy_Health_App.Services.Identity.Core.Entities;
 
 namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Documents
 {

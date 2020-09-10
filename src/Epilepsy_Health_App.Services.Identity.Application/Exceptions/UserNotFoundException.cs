@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Joint.Exception.Exceptions;
+using System;
 using System.Net;
 
 namespace Epilepsy_Health_App.Services.Identity.Application.Exceptions
