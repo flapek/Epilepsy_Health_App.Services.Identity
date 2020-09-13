@@ -7,7 +7,7 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Auth
 {
     internal sealed class Rng : IRng
     {
-        private static readonly string[] SpecialChars = new[] {"/", "\\", "=", "+", "?", ":", "&"};
+        private static readonly string[] SpecialChars = new[] { "/", "\\", "=", "+", "?", ":", "&" };
 
         public string Generate(int length = 50, bool removeSpecialChars = true)
         {

@@ -1,13 +1,13 @@
-using System;
-using System.Threading.Tasks;
-using Joint.DB.Mongo;
 using Epilepsy_Health_App.Services.Identity.Core.Entities;
 using Epilepsy_Health_App.Services.Identity.Core.Repositories;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Documents;
+using Joint.DB.Mongo;
+using System;
+using System.Threading.Tasks;
 
 namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Repositories
 {
-    internal sealed  class UserRepository : IUserRepository
+    internal sealed class UserRepository : IUserRepository
     {
         private readonly IMongoRepository<UserDocument, Guid> _repository;
 

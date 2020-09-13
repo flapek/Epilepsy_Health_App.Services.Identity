@@ -1,5 +1,5 @@
-using System;
 using Epilepsy_Health_App.Services.Identity.Core.Entities;
+using System;
 
 namespace Epilepsy_Health_App.Services.Identity.Application.DTO
 {
