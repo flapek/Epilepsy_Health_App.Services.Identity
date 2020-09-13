@@ -17,7 +17,7 @@ By default, the service will be available under http://localhost:5001 and https:
 
 You can also start the service via Docker, either by building a local Dockerfile: 
 
-`docker build -t epilepsy_Health_App.services.identity .` 
+`docker build -t epilepsy_health_app.services.identity .` 
 
 ## What HTTP requests can be sent to the microservice API?
 
