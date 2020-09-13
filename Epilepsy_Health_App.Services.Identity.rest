@@ -1,49 +1,43 @@
-@url = http://localhost:5004
-@accessToken = secret
-@refreshToken = secret
+@url = https://localhost:6001/api/Auth
+@email =  user1@mail.com
+@password = secret
 
 ###
-POST {{url}}/sign-up
+POST {{url}}/sign-up HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "pacco-user1@mailinator.com",
-  "password": "secret"
+  "email": "{{email}}",
+  "password": "{{password}}"
 }
 
 ###
-POST {{url}}/sign-in
+# @name signIn
+POST {{url}}/sign-in HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "pacco-user1@mailinator.com",
-  "password": "secret"
+  "email": "{{email}}",
+  "password": "{{password}}"
 }
 
+@accessToken = {{signIn.response.body.accessToken}}
+
 ###
-GET {{url}}/me
+GET {{url}}/get HTTP/1.1
+Content-Type: application/json
 Authorization: Bearer {{accessToken}}
 
-###
-POST {{url}}/refresh-tokens/use
+### 
+POST {{url}}/refresh-token HTTP/1.1
+Cookie: {{signIn.response.headers.Set-Cookie}}
 Content-Type: application/json
 
-{
-  "refreshToken": "{{refreshToken}}",
-}
-
 ###
-POST {{url}}/refresh-tokens/revoke
+POST {{url}}/sign-out HTTP/1.1
 Content-Type: application/json
+Cookie: {{signIn.response.headers.Set-Cookie}}
 
 {
-  "refreshToken": "{{refreshToken}}",
-}
-
-###
-POST {{url}}/access-tokens/revoke
-Content-Type: application/json
-
-{
-  "accessToken": "{{accessToken}}",
+  "accessToken": "{{accessToken}}"
 }
