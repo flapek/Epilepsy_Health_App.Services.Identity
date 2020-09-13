@@ -4,4 +4,12 @@
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <Compile Remove="Exceptions\EmptyAccessTokenException1.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Joint.Exception" Version="0.0.125" />
+	</ItemGroup>
+
 </Project>

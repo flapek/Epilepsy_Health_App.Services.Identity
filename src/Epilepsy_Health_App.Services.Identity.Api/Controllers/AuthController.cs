@@ -1,7 +1,5 @@
 ﻿using Epilepsy_Health_App.Services.Identity.Application.Commands;
 using Epilepsy_Health_App.Services.Identity.Application.DTO;
-using Epilepsy_Health_App.Services.Identity.Application.Exceptions;
-using Epilepsy_Health_App.Services.Identity.Core.Exceptions;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
 using Joint.CQRS.Commands;
 using Joint.CQRS.Queries;
@@ -14,11 +12,12 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 {
 
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    [ApiController]
+    public class AuthController : ControllerBase
     {
-        readonly ICommandDispatcher _commandDispatcher;
-        readonly IQueryDispatcher _queryDispatcher;
-        readonly ICookieFactory _cookieFactory;
+        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly IQueryDispatcher _queryDispatcher;
+        private readonly ICookieFactory _cookieFactory;
 
         public AuthController(ICommandDispatcher commandDispatcher, IQueryDispatcher queryDispatcher, ICookieFactory cookieFactory)
         {
@@ -27,21 +26,30 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
             _cookieFactory = cookieFactory;
         }
 
-
-        [HttpPost("SignUp")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(EmailInUseException), StatusCodes.Status400BadRequest)]
+        /// <summary>
+        /// Sign up user
+        /// </summary>
+        /// <param name="command">Request body which user would be sign up</param>
+        /// <returns>status code 201 created</returns>
+        [HttpPost("sign-up")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(EmailInUseException)
         public async Task<IActionResult> SignUp([FromBody] SignUp command)
         {
             await _commandDispatcher.SendAsync(command);
             return Accepted();
         }
 
-        [HttpPost("SignIn")]
+        /// <summary>
+        /// Sign in user 
+        /// </summary>
+        /// <param name="command">Request body which user would be sign in</param>
+        /// <returns>AuthDto</returns>
+        [HttpPost("sign-in")]
         [ProducesResponseType(typeof(AuthDto), StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(InvalidEmailOrPasswordException), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(InvalidCredentialsException), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(InvalidEmailOrPasswordException)
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]               // typeof(InvalidCredentialsException)
         public async Task<IActionResult> SignIn([FromBody] SignIn command)
         {
             var token = await _commandDispatcher.SendAsync<AuthDto>(command);
@@ -49,23 +57,33 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
             return Accepted(token);
         }
 
-        [HttpPost("SignOut")]
+        /// <summary>
+        /// Sign out user and revoke access and refresh token
+        /// </summary>
+        /// <param name="command">Request body which user would be sign out</param>
+        /// <returns>status code 202</returns>
+        [HttpPost("sign-out")]
         [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(EmptyRefreshTokenException), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(InvalidRefreshTokenException), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(EmptyRefreshTokenException)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(InvalidRefreshTokenException)
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> SignOut(SignOut command)
+        public async Task<IActionResult> SignOut([FromBody] SignOut command)
         {
             command.RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this);
             await _commandDispatcher.SendAsync(command);
             return Accepted();
         }
 
-        [HttpPost("Refresh-Token")]
-        [ProducesResponseType(StatusCodes.Status202Accepted)]
-        [ProducesResponseType(typeof(InvalidRefreshTokenException), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(RevokedRefreshTokenException), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(UserNotFoundException), StatusCodes.Status404NotFound)]
+
+        /// <summary>
+        /// Refresh token after expire access token
+        /// </summary>
+        /// <returns>AuthDto</returns>
+        [HttpPost("refresh-token")]
+        [ProducesResponseType(typeof(AuthDto), StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(InvalidRefreshTokenException)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(RevokedRefreshTokenException)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]                   // typeof(UserNotFoundException)
         public async Task<IActionResult> Refresh_Token()
         {
             var command = new Refresh_Token { RefreshToken = _cookieFactory.GetRefreshTokenFromCookie(this) };
@@ -75,6 +93,12 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
             return Accepted(token);
         }
 
+
+        /// <summary>
+        /// This route is for test. 
+        /// If you have access token from LogIn request try to send it there. 
+        /// </summary>
+        /// <returns>If pass return success string</returns>
         [Authorize]
         [HttpGet("get")]
         public IActionResult Get()

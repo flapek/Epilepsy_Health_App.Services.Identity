@@ -1,8 +1,4 @@
-﻿using Epilepsy_Health_App.Services.Identity.Application.DTO;
-using Epilepsy_Health_App.Services.Identity.Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Epilepsy_Health_App.Services.Identity.Core.Entities;
 
 namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Documents
 {
@@ -18,14 +14,6 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Mongo.Documents
                 Email = entity.Email,
                 Password = entity.Password,
                 CreatedAt = entity.CreatedAt
-            };
-
-        public static UserDto AsDto(this UserDocument document)
-            => new UserDto
-            {
-                Id = document.Id,
-                Email = document.Email,
-                CreatedAt = document.CreatedAt
             };
 
         public static RefreshToken AsEntity(this RefreshTokenDocument document)

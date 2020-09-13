@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Joint.Exception.Exceptions;
+using System;
 using System.Net;
-using Epilepsy_Health_App.Services.Identity.Application.Exceptions;
-using Epilepsy_Health_App.Services.Identity.Core.Exceptions;
-using Joint.WebApi.Exceptions;
 
 namespace Epilepsy_Health_App.Services.Identity.Infrastructure.Exceptions
 {

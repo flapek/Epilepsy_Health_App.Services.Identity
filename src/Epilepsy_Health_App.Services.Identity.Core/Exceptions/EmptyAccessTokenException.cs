@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Joint.Exception.Exceptions;
 using System.Net;
-using System.Text;
 
 namespace Epilepsy_Health_App.Services.Identity.Core.Exceptions
 {
@@ -14,6 +12,5 @@ namespace Epilepsy_Health_App.Services.Identity.Core.Exceptions
         {
 
         }
-
     }
 }

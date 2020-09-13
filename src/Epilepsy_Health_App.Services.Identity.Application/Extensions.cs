@@ -1,4 +1,4 @@
-﻿using Joint;
+﻿using Joint.Builders;
 using Joint.CQRS.Commands;
 using Joint.CQRS.Events;
 
