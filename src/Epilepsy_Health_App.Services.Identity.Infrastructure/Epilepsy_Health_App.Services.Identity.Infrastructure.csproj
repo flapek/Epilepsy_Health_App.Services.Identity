@@ -5,7 +5,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Joint\src\Joint.Exception\src\Joint.Exception.csproj" />
 		<ProjectReference Include="..\Epilepsy_Health_App.Services.Identity.Application\Epilepsy_Health_App.Services.Identity.Application.csproj" />
 	</ItemGroup>
 
@@ -16,11 +15,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Joint" Version="0.0.125" />
-		<PackageReference Include="Joint.Auth" Version="0.0.125" />
-		<PackageReference Include="Joint.DB.Mongo" Version="0.0.125" />
-		<PackageReference Include="Joint.DB.Redis" Version="0.0.125" />
-		<PackageReference Include="Joint.Exception" Version="0.0.125" />
+		<PackageReference Include="Joint" Version="0.0.130" />
+		<PackageReference Include="Joint.Auth" Version="0.0.130" />
+		<PackageReference Include="Joint.DB.Mongo" Version="0.0.130" />
+		<PackageReference Include="Joint.DB.Redis" Version="0.0.130" />
+		<PackageReference Include="Joint.Exception" Version="0.0.130" />
 	</ItemGroup>
 
 	<ItemGroup>
