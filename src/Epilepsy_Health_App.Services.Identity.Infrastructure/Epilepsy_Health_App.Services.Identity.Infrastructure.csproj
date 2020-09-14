@@ -5,6 +5,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\Joint\src\Joint.Exception\src\Joint.Exception.csproj" />
 		<ProjectReference Include="..\Epilepsy_Health_App.Services.Identity.Application\Epilepsy_Health_App.Services.Identity.Application.csproj" />
 	</ItemGroup>
 
@@ -20,7 +21,6 @@
 		<PackageReference Include="Joint.DB.Mongo" Version="0.0.125" />
 		<PackageReference Include="Joint.DB.Redis" Version="0.0.125" />
 		<PackageReference Include="Joint.Exception" Version="0.0.125" />
-		<PackageReference Include="Joint.WebApi" Version="0.0.99" />
 	</ItemGroup>
 
 	<ItemGroup>
