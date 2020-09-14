@@ -15,11 +15,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Joint" Version="0.0.130" />
-		<PackageReference Include="Joint.Auth" Version="0.0.130" />
-		<PackageReference Include="Joint.DB.Mongo" Version="0.0.130" />
-		<PackageReference Include="Joint.DB.Redis" Version="0.0.130" />
-		<PackageReference Include="Joint.Exception" Version="0.0.130" />
+		<PackageReference Include="Joint" Version="0.0.133" />
+		<PackageReference Include="Joint.Auth" Version="0.0.133" />
+		<PackageReference Include="Joint.DB.Mongo" Version="0.0.133" />
+		<PackageReference Include="Joint.DB.Redis" Version="0.0.133" />
+		<PackageReference Include="Joint.Exception" Version="0.0.133" />
 	</ItemGroup>
 
 	<ItemGroup>
