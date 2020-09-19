@@ -8,9 +8,9 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	<!--<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
 	  <DocumentationFile>bin\release\netcoreapp3.1\Epilepsy_Health_App.Services.Identity.Api.xml</DocumentationFile>
-	</PropertyGroup>
+	</PropertyGroup>-->
 
 	<ItemGroup>
 		<PackageReference Include="Joint" Version="0.0.133" />
