@@ -59,8 +59,5 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
 
             return app;
         }
-
-
-
     }
 }
