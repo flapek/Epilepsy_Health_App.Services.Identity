@@ -8,14 +8,10 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DocumentationFile>bin\release\netcoreapp3.1\Epilepsy_Health_App.Services.Identity.Api.xml</DocumentationFile>
-	</PropertyGroup>
-
 	<ItemGroup>
-		<PackageReference Include="Joint" Version="0.0.125" />
-		<PackageReference Include="Joint.Docs.Swagger" Version="0.0.125" />
-		<PackageReference Include="Joint.Logging" Version="0.0.125" />
+		<PackageReference Include="Joint" Version="0.0.133" />
+		<PackageReference Include="Joint.Docs.Swagger" Version="0.0.133" />
+		<PackageReference Include="Joint.Logging" Version="0.0.133" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
 	</ItemGroup>
 
