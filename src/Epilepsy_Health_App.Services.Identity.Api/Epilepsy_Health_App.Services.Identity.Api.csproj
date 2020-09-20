@@ -17,7 +17,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Epilepsy_Health_App.Services.Identity.Application\Epilepsy_Health_App.Services.Identity.Application.csproj" />
-		<ProjectReference Include="..\Epilepsy_Health_App.Services.Identity.Core\Epilepsy_Health_App.Services.Identity.Core.csproj" />
 		<ProjectReference Include="..\Epilepsy_Health_App.Services.Identity.Infrastructure\Epilepsy_Health_App.Services.Identity.Infrastructure.csproj" />
 	</ItemGroup>
 
