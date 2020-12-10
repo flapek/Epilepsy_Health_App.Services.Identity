@@ -13,6 +13,7 @@ using Joint.Builders;
 using Joint.CQRS.Queries;
 using Joint.DB.Mongo;
 using Joint.DBRedis;
+using Joint.Discovery.Consul;
 using Joint.Exception;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -43,6 +44,7 @@ namespace Epilepsy_Health_App.Services.Identity.Infrastructure
                 .AddMongoRepository<UserDocument, Guid>("users")
                 .AddMongoRepository<RefreshTokenDocument, Guid>("refreshTokens")
                 .AddRedis()
+                .AddConsul()
                 .AddErrorHandler<ExceptionToResponseMapper>()
                 .AddQueryHandlers()
                 .AddInMemoryQueryDispatcher();

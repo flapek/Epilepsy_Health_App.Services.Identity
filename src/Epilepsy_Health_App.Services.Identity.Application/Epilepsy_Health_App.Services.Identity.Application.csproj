@@ -5,13 +5,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Joint" Version="0.0.133" />
-		<PackageReference Include="Joint.Auth" Version="0.0.133" />
-		<PackageReference Include="Joint.CQRS.Commands" Version="0.0.133" />
-		<PackageReference Include="Joint.CQRS.Events" Version="0.0.133" />
-		<PackageReference Include="Joint.CQRS.Queries" Version="0.0.133" />
-		<PackageReference Include="Joint.Exception" Version="0.0.133" />
-		<PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.8" />
+		<PackageReference Include="Joint" Version="0.1.169" />
+		<PackageReference Include="Joint.Auth" Version="0.1.11" />
+		<PackageReference Include="Joint.CQRS.Commands" Version="0.1.4" />
+		<PackageReference Include="Joint.CQRS.Events" Version="0.1.3" />
+		<PackageReference Include="Joint.CQRS.Queries" Version="0.1.5" />
+		<PackageReference Include="Joint.Exception" Version="0.1.3" />
+		<PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.10" />
 	</ItemGroup>
 
 	<ItemGroup>
