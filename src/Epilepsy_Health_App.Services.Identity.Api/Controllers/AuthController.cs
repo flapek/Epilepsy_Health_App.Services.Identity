@@ -2,7 +2,6 @@
 using Epilepsy_Health_App.Services.Identity.Application.DTO;
 using Epilepsy_Health_App.Services.Identity.Infrastructure.Cookies;
 using Joint.CQRS.Commands;
-using Joint.CQRS.Queries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
