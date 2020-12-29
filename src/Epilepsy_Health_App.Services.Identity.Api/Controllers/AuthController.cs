@@ -30,7 +30,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
         /// <param name="command">Request body which user would be sign up</param>
         /// <returns>status code 201 created</returns>
         [HttpPost("sign-up")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]                 // typeof(EmailInUseException)
         public async Task<IActionResult> SignUp([FromBody] SignUp command)
         {
