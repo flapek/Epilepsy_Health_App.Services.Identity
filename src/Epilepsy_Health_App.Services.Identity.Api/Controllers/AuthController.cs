@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace Epilepsy_Health_App.Services.Identity.Api.Controllers
 {
 
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
