@@ -43,7 +43,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
+            
             app.UseSwaggerDocs();
 
             app.UseHttpsRedirection();
