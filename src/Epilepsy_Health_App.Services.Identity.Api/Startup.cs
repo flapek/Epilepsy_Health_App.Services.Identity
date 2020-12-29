@@ -15,10 +15,8 @@ namespace Epilepsy_Health_App.Services.Identity.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public Startup(IConfiguration configuration) 
+            => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
@@ -45,7 +43,7 @@ namespace Epilepsy_Health_App.Services.Identity.Api
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-
+            
             app.UseSwaggerDocs();
 
             app.UseHttpsRedirection();
